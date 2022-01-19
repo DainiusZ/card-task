@@ -4,14 +4,21 @@ import "./index.css";
 import "./Card.css";
 import Card from "./Card";
 import reportWebVitals from "./reportWebVitals";
+import { json } from "./data.js";
 
+const cardsArray = json.data.map((item) => {
+  return (
+    <Card
+      key={item.id}
+      number={item.imagesCount}
+      name={item.name}
+      updated={item.updatedAt}
+      status={item.statusKey}
+    />
+  );
+});
 ReactDOM.render(
-  <React.StrictMode>
-    <Card />
-    <Card />
-    <Card />
-    <Card />
-  </React.StrictMode>,
+  <React.StrictMode>{cardsArray}</React.StrictMode>,
   document.getElementById("root")
 );
 
