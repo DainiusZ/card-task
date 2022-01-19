@@ -1,13 +1,13 @@
 import React from "react";
 
-const Card = () =>{
+const Card = ({ name, number, updated, status}) =>{
   return(
     <div className="study__card">
-      <img src="https://picsum.photos/200/300" alt="card-pic" />
+      <img src={`https://picsum.photos/id/${Math.floor((Math.random() * number) + number)}/200/300`} alt="card-pic" />
       <div>
-        <h2>Name</h2>
-        <p>Updated</p>
-        <p>Status</p>
+        <h2>{name}</h2>
+        <p>{updated}</p>
+        <p>{status}</p>
       </div>
     </div>
   )
