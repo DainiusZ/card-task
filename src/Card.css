@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway,Dosis:wght@400;700&display=swap");
+
+h2,
+p {
+  font-family: "Dosis", sans-serif;
+}
+
 .study__card {
   min-width: 22%;
   padding: 30px;
