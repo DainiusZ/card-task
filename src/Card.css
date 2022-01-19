@@ -1,0 +1,29 @@
+.study__card {
+  min-width: 22%;
+  padding: 30px;
+  margin: 20px;
+  background-color: lightgreen;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+  text-align: center;
+}
+
+.study__card img {
+  max-width: 100%;
+}
+
+.study__card:hover {
+  animation: grow 0.3s ease;
+  transform: scale(1.02);
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
