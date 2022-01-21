@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Card from "./Card";
+import CardList from "./CardList";
 import "./Card.css";
 
 function App() {
@@ -14,29 +14,15 @@ function App() {
         "Accept": "application/json",
       },
     })
-      .then( response => {
-        response.json();
-      })
-      .then( myJson => {
+      .then( response => response.json())
+      .then( myJson =>{
         setCards(myJson.data)
         setMetaData(myJson.meta)
       });
   }, []);
 
-
-  const cardsArray = cards.map((item) => {
-    return (
-      <Card
-        key={item.id}
-        number={item.imagesCount}
-        name={item.name}
-        updated={item.updatedAt}
-        status={item.statusKey}
-      />
-    );
-  });
   return (
-    cardsArray
+    <CardList cards = {cards}/>
   )
 }
 
