@@ -1,24 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import "./Card.css";
-import Card from "./Card";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { json } from "./data.js";
 
-const cardsArray = json.data.map((item) => {
-  return (
-    <Card
-      key={item.id}
-      number={item.imagesCount}
-      name={item.name}
-      updated={item.updatedAt}
-      status={item.statusKey}
-    />
-  );
-});
 ReactDOM.render(
-  <React.StrictMode>{cardsArray}</React.StrictMode>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById("root")
 );
 
