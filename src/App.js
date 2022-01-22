@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
+import "./App.css"
 import CardList from "./CardList";
-import "./Card.css";
+import Pagination from "./Pagination";
+import Spinner from "./Spinner";
 
-function App() {
+const App = () => {
 
+  const [isLoading, setLoading] = useState(true)
   const [cards, setCards] = useState([]);
-  const [metaData, setMetaData] = useState({});
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(10);
 
   useEffect(()=>{
     fetch("./mock_data/list.json", {
@@ -15,14 +20,32 @@ function App() {
       },
     })
       .then( response => response.json())
-      .then( myJson =>{
-        setCards(myJson.data)
-        setMetaData(myJson.meta)
+      .then( myJson => {
+        setCards(myJson.data);
+        setCurrentPage(myJson.meta.current_page);
+        setCardsPerPage(myJson.meta.per_page);
+        // setTotalItems(myJson.meta.total); čia jei meta total sutatptų su visu įrašų skaičiumi myJson.data masyve
+        setTotalItems(myJson.data.length);
+        setLoading(false);
       });
   }, []);
 
-  return (
-    <CardList cards = {cards}/>
+  const indexOfLastPost = currentPage * cardsPerPage;
+  const indexOfFirstPost = indexOfLastPost - cardsPerPage;
+  const cardsToDisplay = cards.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
+  return isLoading ? <Spinner/> : 
+    (
+    <div>
+      <div className="cardList">
+        <CardList cards = {cardsToDisplay}/>
+      </div>
+        <Pagination totalItems = {totalItems} cardsPerPage = {cardsPerPage} paginate = {paginate}/>
+    </div>
   )
 }
 
