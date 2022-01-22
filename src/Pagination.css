@@ -1,0 +1,26 @@
+nav {
+  padding: 30px 0;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+ul li {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 1px;
+  padding: 2px 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  background-color: whitesmoke;
+}
+
+ul li a {
+  font-family: "Dosis", sans-serif;
+  padding: 0 15px;
+  text-decoration: none;
+  color: black;
+}
