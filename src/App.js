@@ -4,6 +4,8 @@ import CardList from "./CardList";
 import Pagination from "./Pagination";
 import Spinner from "./Spinner";
 
+import { getApiData } from "./actions";
+
 const App = () => {
 
   const [isLoading, setLoading] = useState(true)
@@ -24,7 +26,8 @@ const App = () => {
         setCards(myJson.data);
         setCurrentPage(myJson.meta.current_page);
         setCardsPerPage(myJson.meta.per_page);
-        // setTotalItems(myJson.meta.total); čia jei meta total sutatptų su visu įrašų skaičiumi myJson.data masyve
+        //čia jei meta total sutatptų su visu įrašų skaičiumi myJson.data masyve
+        // setTotalItems(myJson.meta.total); 
         setTotalItems(myJson.data.length);
         setLoading(false);
       });
@@ -46,7 +49,7 @@ const App = () => {
       </div>
         <Pagination totalItems = {totalItems} cardsPerPage = {cardsPerPage} paginate = {paginate}/>
     </div>
-  )
+  ) 
 }
 
 export default App;
