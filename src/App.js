@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import "./App.css"
 import CardList from "./CardList";
 import Pagination from "./Pagination";
@@ -6,7 +7,20 @@ import Spinner from "./Spinner";
 
 import { getApiData } from "./actions";
 
-const App = () => {
+const mapStateToProps = state =>{
+  console.log("fff")
+  return {
+    data: state.cards
+  }
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    setCards: (data) => dispatch(getApiData(data))
+  }
+}
+
+const App = (props) => {
 
   const [isLoading, setLoading] = useState(true)
   const [cards, setCards] = useState([]);
@@ -15,6 +29,7 @@ const App = () => {
   const [cardsPerPage, setCardsPerPage] = useState(10);
 
   useEffect(()=>{
+    
     fetch("./mock_data/list.json", {
       headers: {
         "Content-Type": "application/json",
@@ -24,6 +39,7 @@ const App = () => {
       .then( response => response.json())
       .then( myJson => {
         setCards(myJson.data);
+        props.setCards(myJson.data); //playing with redux actions
         setCurrentPage(myJson.meta.current_page);
         setCardsPerPage(myJson.meta.per_page);
         //čia jei meta total sutatptų su visu įrašų skaičiumi myJson.data masyve
@@ -52,4 +68,4 @@ const App = () => {
   ) 
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
