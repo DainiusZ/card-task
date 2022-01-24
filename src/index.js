@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import thunkMiddleware from "redux-thunk";
+// import { createLogger } from 'redux-logger';
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { apiData } from "./reducers";
 
-const store = createStore(apiData);
+
+// const logger = createLogger();
+const store = createStore(apiData, applyMiddleware(thunkMiddleware));
+
 
 ReactDOM.render(
   <Provider store={store}>
