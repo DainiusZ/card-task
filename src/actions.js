@@ -12,3 +12,10 @@ export const getApiData = () => (dispatch) => {
       dispatch({ type: "REQUEST_DATA_FAILED", payload: error })
     );
 };
+
+export const setCurrentPage = (pageNumber) => {
+  return {
+    type: "SEND_PAGE_NUMBER",
+    payload: pageNumber,
+  };
+};

@@ -1,59 +1,44 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import "./App.css"
 import CardList from "./CardList";
 import Pagination from "./Pagination";
 import Spinner from "./Spinner";
+import { getApiData, setCurrentPage } from "./actions";
 
-import { getApiData } from "./actions";
 
-const mapStateToProps = state =>{
-  return {
-    cards: state.data,
-    meta: state.meta,
-    isPending: state.isPending,
-    error: state.error
-  }
-}
+const App = () => {
 
-const mapDispatchToProps = dispatch =>{
-  return{
-    setCards: () => dispatch(getApiData())
-  }
-}
+  const cards = useSelector(state => state.cards);
+  const isPending = useSelector(state => state.isPending);
+  const meta = useSelector(state => state.meta);
+  const {current_page: currentPage, per_page: cardsPerPage} = meta;
+  const totalItems = cards.length;
+  const dispatch = useDispatch();
 
-const App = (props) => {
-
-  // const [isLoading, setLoading] = useState(true)
-  // const [cards, setCards] = useState([]);
-  // const [totalItems, setTotalItems] = useState(0);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [cardsPerPage, setCardsPerPage] = useState(10);
-
-  const {cards, meta: {currentPage, cardsPerPage, totalItems}, isPending} = props;
   
   useEffect(()=>{
-    props.setCards();
+    dispatch(getApiData());
   }, []);
   
-  // console.log("props",props)
   const indexOfLastPost = currentPage * cardsPerPage;
   const indexOfFirstPost = indexOfLastPost - cardsPerPage;
-  // const cardsToDisplay = cards.slice(indexOfFirstPost, indexOfLastPost);
+  const cardsToDisplay = cards.slice(indexOfFirstPost, indexOfLastPost);
 
-  // const paginate = (pageNumber) => {
-  //   setCurrentPage(pageNumber)
-  // }
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
 
-  return !isPending ? <Spinner/> : 
+
+  return isPending ? <Spinner/> : 
     (
     <div>
       <div className="cardList">
-        {/* <CardList cards = {cardsToDisplay}/> */}
+        <CardList cards = {cardsToDisplay}/>
       </div>
-        {/* <Pagination totalItems = {totalItems} cardsPerPage = {cardsPerPage}/> */}
+        <Pagination totalItems = {totalItems} cardsPerPage = {cardsPerPage} paginate = {paginate(currentPage)}/>
     </div>
   ) 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

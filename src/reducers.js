@@ -1,32 +1,39 @@
 const initialState = {
   cards: [],
   meta: {},
-  isPending: false,
+  isPending: true,
+  currentNumber: 1,
   error: ""
 }
 
-export const apiData = (state = initialState, action = {}) =>{
-  // console.log(action.payload)
+export const apiData = (state = initialState, action = {}) => {
   switch(action.type) {
+    case "SEND_PAGE_NUMBER":
+      return {
+        ...state,
+        currentNumber: action.payload
+      }
     case "REQUEST_DATA_PENDING":
       return {
         ...state, 
         isPending: true
       }
-      case "REQUEST_DATA_SUCCESS":
-        return  {
+    case "REQUEST_DATA_SUCCESS":
+      return  {
           ...state, 
           isPending: false, 
           cards: action.payload.data, 
           meta: action.payload.meta
         }
-        case "REQUEST_DATA_FAILED":
-          return {      
+    case "REQUEST_DATA_FAILED":
+      return {      
             ...state, 
-            isPending: false, 
+            isPending: true, 
             error: action.payload
           }
-          default: 
-          return state;
-        }
-      }
+    default: 
+    return state;
+  }
+}
+
+
