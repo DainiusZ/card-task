@@ -1,44 +1,46 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import "./App.css"
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import "./App.css";
 import CardList from "./CardList";
 import Pagination from "./Pagination";
 import Spinner from "./Spinner";
-import { getApiData, setCurrentPage } from "./actions";
-
+import { getApiData } from "./actions";
 
 const App = () => {
-
-  const cards = useSelector(state => state.cards);
-  const isPending = useSelector(state => state.isPending);
-  const meta = useSelector(state => state.meta);
-  const {current_page: currentPage, per_page: cardsPerPage} = meta;
+  const [currentPage, setPageNumber] = useState(1);
+  const cards = useSelector((state) => state.cards);
+  const isPending = useSelector((state) => state.isPending);
+  const meta = useSelector((state) => state.meta);
+  const { per_page: cardsPerPage } = meta;
   const totalItems = cards.length;
   const dispatch = useDispatch();
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getApiData());
-  }, []);
-  
+  }, [dispatch]);
+
   const indexOfLastPost = currentPage * cardsPerPage;
   const indexOfFirstPost = indexOfLastPost - cardsPerPage;
   const cardsToDisplay = cards.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber)
-  }
+    setPageNumber(pageNumber);
+  };
 
-
-  return isPending ? <Spinner/> : 
-    (
+  return isPending ? (
+    <Spinner />
+  ) : (
     <div>
       <div className="cardList">
-        <CardList cards = {cardsToDisplay}/>
+        <CardList cards={cardsToDisplay} />
       </div>
-        <Pagination totalItems = {totalItems} cardsPerPage = {cardsPerPage} paginate = {paginate(currentPage)}/>
+      <Pagination
+        totalItems={totalItems}
+        cardsPerPage={cardsPerPage}
+        paginate={paginate}
+      />
     </div>
-  ) 
-}
+  );
+};
 
 export default App;
