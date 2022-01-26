@@ -14,7 +14,7 @@ const Card = ({ id, data }) => {
   const formatedDate = (inputDate) =>
     new Date(inputDate).toISOString().split("T")[0];
 
-  const pageForward = () => {
+  const cardSpin = () => {
     document
       .querySelector(`.card__side--front${id}`)
       .classList.toggle("forward");
@@ -38,7 +38,7 @@ const Card = ({ id, data }) => {
           <p>Status: {status}</p>
         </div>
         <div className="flipside--front">
-          <span onClick={pageForward} className={`arrow--forward`}>
+          <span onClick={cardSpin} className={`arrow--forward`}>
             &#10095;
           </span>
         </div>
@@ -46,7 +46,7 @@ const Card = ({ id, data }) => {
 
       <div className={`card__side card__side--back card__side--back${id}`}>
         <div className="flipside--back">
-          <span onClick={pageForward} className="arrow--back">
+          <span onClick={cardSpin} className="arrow--back">
             &#10094;
           </span>
         </div>

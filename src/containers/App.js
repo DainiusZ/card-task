@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
-import CardList from "./CardList";
-import Pagination from "./Pagination";
-import Spinner from "./Spinner";
-import { getApiData } from "./actions";
+import CardList from "../components/CardList";
+import Pagination from "../components/Pagination";
+import Spinner from "../components/Spinner";
+import { getApiData } from "../actions";
 
 const App = () => {
   const [currentPage, setPageNumber] = useState(1);
@@ -12,7 +12,7 @@ const App = () => {
   const isPending = useSelector((state) => state.isPending);
   const meta = useSelector((state) => state.meta);
   const { per_page: cardsPerPage } = meta;
-  const totalItems = cards.length;
+  const totalItems = cards.length; //nes meta prop tatalItems neatitinka masyve esančių elementų skaičiaus
   // const totalItems = meta.total;
   const dispatch = useDispatch();
 

@@ -21,6 +21,7 @@ code {
     monospace;
 }
 
+/* css for proper spinner placement */
 #root {
   position: absolute;
   height: 100%;
