@@ -13,6 +13,7 @@ const App = () => {
   const meta = useSelector((state) => state.meta);
   const { per_page: cardsPerPage } = meta;
   const totalItems = cards.length;
+  // const totalItems = meta.total;
   const dispatch = useDispatch();
 
   useEffect(() => {
